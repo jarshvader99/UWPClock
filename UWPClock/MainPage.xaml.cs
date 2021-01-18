@@ -22,9 +22,21 @@ namespace UWPClock
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        DispatcherTimer timer = new DispatcherTimer();
+
         public MainPage()
         {
             this.InitializeComponent();
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += Timer_Tick;
+            timer.Start();
+        }
+
+        private void Timer_Tick(object sender, object e)
+        {
+            secondHand.Angle = DateTime.Now.Second * 6;
+            minuteHand.Angle = DateTime.Now.Minute * 6;
+            hourHand.Angle = (DateTime.Now.Hour * 30);
         }
     }
 }
